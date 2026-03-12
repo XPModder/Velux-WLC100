@@ -74,5 +74,3 @@ I might go through all the possible commands and write down these last 4 bits fo
 
 
 Maybe I could help someone with this.
-
-I might also write a small arduino library to control these blinds.
