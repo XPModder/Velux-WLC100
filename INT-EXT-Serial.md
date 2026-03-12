@@ -57,3 +57,10 @@ The first packet has the structure 101010DDDUUU and the second has the structure
 The down and up bits are for the motors as follows: D D D U U U -> M3 M1 M2 M3 M1 M2
 
 From this structure it appears that it could be possible to command multiple motors in a single command, though I have not seen this ever happen and have not tested sending such a command.
+
+## Usage
+This protocol is relatively simple and should be very straight forward to implement in software on a microcontroller by bit-banging with a simple timer.
+
+I have only done very little experimenting with this, but plan to use this information to create a small wireless or ethernet capable board to control my blinds over the local network.
+
+If I remember I will update this repo with my project.
