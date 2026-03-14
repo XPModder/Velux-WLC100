@@ -47,7 +47,7 @@ A new bit starts every 1.69 ms.
 
 Every packet consists of 24 bits.
 
-These contain the command for the blinds, the selected motor, the security code and 4 bits that I could not (yet) find the purpose of.
+These contain the command for the blinds, the selected motor, the security code and 4 bits for a checksum.
 
 (In the following images the polarity of the scope probe was reversed, so it looks like the waveform is upside down. You can just ignore this.)
 
@@ -63,14 +63,11 @@ The following three bits (bit 4, 5 and 6) indicate the selected motor (see descr
 The next 4 bits indicate the motor set from 1 to 10. When all bits are 0 the command controls all motor sets. The numbers are represented in binary as usual.<br>
 The following 10 bits after this directly represent the security code as set by the DIP-switches in the remote.
 
-The last 4 bits are (as mentioned above) still a mystery to me.<br>
-They do not seem to encode any additional information (like the mode the remote is set to), as they do not change when the settings of the remote are changed.<br>
-They are however different between different commands.<br>
-I thought that they might be some form of error detection or correction, however they do not appear to be parity bits, checksums or CRC.<br>
-I will continue to work on this and update this file when I found out, what these bits do.<br>
-I could use some help with this.<br>
-If anyone has any other idea what they might be, please send me a message.<br>
-I might go through all the possible commands and write down these last 4 bits for each command.
+The last 4 bits are a checksum, the exact calculation of which was discovered by some people on the Arduino-IRremote repo [here](https://github.com/Arduino-IRremote/Arduino-IRremote/issues/612).<br>
+The checksum is calculated as follows:<br>
+**(a XOR MotorSet) XOR b**<br>
+with a = 0x8 for a UP command, a = 0xD for a DOWN command and a = 0x2 for a STOP command<br>
+and b = 0x0 for Motor 1 and ALL Motors, b = 0x5 for Motor 2 and b = 0xF for Motor 3.
 
 
 Maybe I could help someone with this.
